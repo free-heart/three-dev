@@ -5,30 +5,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
 </head>
-<style>
-  html, body {
-    background-color: #040b1a;
-    color: #fff;
-  }
-  #tip {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    font-size: 28px;
-    text-align: center;
-    line-height: 500px;
-    background-color: #040b1a;
-  }
-</style>
 <body>
   <div id="tip">模型正在加载中...</div>
-  <p>
-    当前设备：
-    <span id="content"></span>
-  </p>
+
+  <ul class="equipmentLabel hide">
+    <li class="first"></li>
+    <li class="labelInfo">
+      <div>
+        <header>
+          <div class="cn"></div>
+          <span class="en"></span>
+        </header>
+        <ul class="ul"></ul>
+      </div>
+    </li>
+  </ul>
+
   <script src="./index.js" type="module"></script>
 </body>
 </html>

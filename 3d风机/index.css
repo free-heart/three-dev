@@ -1,0 +1,89 @@
+* {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  background-color: #040b1a;
+  color: #fff;
+}
+#tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 28px;
+  text-align: center;
+  line-height: 500px;
+  background-color: #040b1a;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block !important;
+}
+.equipmentLabel {
+  position: absolute;
+  width: 500px;
+  height: 225px;
+  z-index: 999;
+}
+.first {
+  color: #fff;
+  width: 191.5px;
+  height: 225.5px;
+  background-image: url('./images/1.png');
+  background-size: 191.5px auto;
+  position: absolute;
+  right: 302.5px;
+  top: 0px;
+}
+.labelInfo {
+  width: 302.5px;
+  height: 225.5px;
+  background-image: url('./images/2.png');
+  background-size: 302.5px auto;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.labelInfo > div {
+  width: 100%;
+  height: 100%;
+  background-color: #04669e73;
+  border: 1px solid #15c5e8;
+  box-sizing: border-box;
+  padding: 20px 20px;
+}
+header {
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  border-bottom: 1px dashed aqua;
+  padding-bottom: 14px;
+}
+.en {
+  font-size: 12px;
+  color: aqua;
+}
+.ul {
+  width: 100%;
+  color: #fff;
+}
+.ul li {
+  line-height: 30px;
+  font-size: 14px;
+  display: flex;
+  text-align: left;
+  align-items: center;
+}
+.ul li span:nth-child(2) {
+  padding: 0 5px;
+  color: #f0c002;
+}

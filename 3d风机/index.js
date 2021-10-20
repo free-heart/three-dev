@@ -1,8 +1,8 @@
 // 引入需要用到的文件
 import * as THREE from './build/three.module.js'
 import { GLTFLoader } from './examples/jsm/loaders/GLTFLoader.js'
-import { OrbitControls } from './examples/jsm/controls/OrbitControls.js';
-import { TWEEN } from './examples/jsm/libs/tween.module.min.js';
+import { OrbitControls } from './examples/jsm/controls/OrbitControls.js'
+import { TWEEN } from './examples/jsm/libs/tween.module.min.js'
 import { EffectComposer } from './examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from './examples/jsm/postprocessing/RenderPass.js'
 import { OutlinePass } from './examples/jsm/postprocessing/OutlinePass.js'
@@ -26,7 +26,14 @@ let scene, // 场景
     renderPass,
     outlinePass
 
+// 获取 dom
+const equipmentLabel = document.querySelector('.equipmentLabel')
+const cn = document.querySelector('.cn')
+const en = document.querySelector('.en')
+const ul = document.querySelector('.ul')
+
 let mixers = new Map()
+
 const labelData ={
   polySurface152: {
       cn: "变桨系统",
@@ -302,6 +309,8 @@ function render() {
 
 // 设备模型点击交互事件
 function onPointerClick (event) {
+  equipmentLabel.className = 'equipmentLabel hide'
+
   mouse.x = (event.clientX / width) * 2 - 1;
   mouse.y = -(event.clientY / height) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
@@ -309,10 +318,12 @@ function onPointerClick (event) {
   if (intersects.length <= 0) return false;
   const object = intersects[0].object;
   if (object.isMesh) {
+    // object.material.color.set(0xff0000);
+
     // 注意传入的是一个数组
     outline([object]);
-    content.innerHTML = labelData[object.name].cn
-    // object.material.color.set(0xff0000);
+    renderLabel(labelData[object.name])
+    updateLabalPosition(event)
   }
 }
 
@@ -342,6 +353,30 @@ function outline (obj, color = 0x15c5e8) {
   outlinePass.visibleEdgeColor.set(color);
   outlinePass.hiddenEdgeColor.set(color);
   compose.addPass(outlinePass);
+}
+
+// 渲染选中文本
+function renderLabel (data) {
+  ul.innerHTML = ''
+  cn.innerHTML = data.cn
+  en.innerHTML = data.en
+
+  data.list.forEach(item => {
+    const li = document.createElement('li')
+    li.innerHTML = `
+      <span>${item.name}:</span>
+      <span>${item.value}</span>
+      <span>${item.unit}</span>
+    `
+    ul.appendChild(li)
+    equipmentLabel.className = 'equipmentLabel show'
+  })
+}
+
+// 更新标签位置
+function updateLabalPosition (e) {
+  equipmentLabel.style.left = (e.clientX) + 'px'
+  equipmentLabel.style.top = (e.clientY - 200) + 'px'
 }
 
 init()
