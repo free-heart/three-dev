@@ -271,18 +271,19 @@ function changeAnimation(mesh, animationName) {
 }
 
 // 添加光源
-function addSpotLight () {
+function addLight () {
   const arr = [
     [100, 100, 100],
     [-100, 100, 100],
     [100, -100, 100]
   ];
-  arr.forEach(_ => {
+  arr.forEach(([x, y, z]) => {
     // 平行光
-    const spotLight = new THREE.DirectionalLight(0xffffff, 3)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 3)
     // 如果设置为 true 该平行光会产生动态阴影。 警告: 这样做的代价比较高而且需要一直调整到阴影看起来正确.
-    // spotLight.castShadow = true;
-    scene.add(spotLight);
+    // directionalLight.castShadow = true;
+    directionalLight.position.set(x, y, z)
+    scene.add(directionalLight);
   });
 }
 
@@ -381,7 +382,7 @@ function updateLabalPosition (e) {
 
 init()
 addControls()
-addSpotLight()
+addLight()
 loadingModel()
 render()
 
