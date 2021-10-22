@@ -6,7 +6,6 @@ import { TWEEN } from './examples/jsm/libs/tween.module.min.js'
 import { EffectComposer } from './examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from './examples/jsm/postprocessing/RenderPass.js'
 import { OutlinePass } from './examples/jsm/postprocessing/OutlinePass.js'
-import { CSS2DObject, CSS2DRenderer} from "./examples/jsm/renderers/CSS2DRenderer.js"
 
 const width = window.innerWidth
 const height = window.innerHeight
@@ -32,9 +31,6 @@ const equipmentLabel = document.querySelector('.equipmentLabel')
 const cn = document.querySelector('.cn')
 const en = document.querySelector('.en')
 const ul = document.querySelector('.ul')
-
-let CSSObject = new CSS2DObject(equipmentLabel);
-let CSSRender = new CSS2DRenderer()
 
 let mixers = new Map()
 
@@ -207,16 +203,6 @@ function init () {
   renderer.setSize(width, height);
 
   scene.add(wholeGroup)
-
-  CSSRender.setSize(width, height)
-  CSSRender.domElement.style.position = 'absolute'
-  CSSRender.domElement.style.top = 0;
-  CSSRender.domElement.style.left = 0;
-
-  scene.add(CSSObject)
-
-  document.body.appendChild(renderer.domElement)
-  document.body.appendChild(CSSRender.domElement)
 }
 
 // 加载模型
@@ -303,14 +289,13 @@ function addLight () {
 
 // 添加轨道控制器
 function addControls () {
-  controls = new OrbitControls( camera, CSSRender.domElement )
-  // controls.maxPolarAngle = Math.PI / 2.5;
+  controls = new OrbitControls( camera, renderer.domElement );
+  document.body.appendChild(renderer.domElement)
 }
 
 // 渲染
 function render() {
   renderer.render(scene, camera)
-  CSSRender.render(scene, camera)
   compose && compose.render();
   requestAnimationFrame(render)
   controls.update();
@@ -339,7 +324,7 @@ function onPointerClick (event) {
     // 注意传入的是一个数组
     outline([object]);
     renderLabel(labelData[object.name])
-    updateLabalPosition(intersects[0])
+    updateLabalPosition(event)
   }
 }
 
@@ -390,9 +375,9 @@ function renderLabel (data) {
 }
 
 // 更新标签位置
-function updateLabalPosition (intersect) {
-  const point = intersect.point;
-  CSSObject.position.set(point.x, point.y, point.z);
+function updateLabalPosition (e) {
+  equipmentLabel.style.left = (e.clientX) + 'px'
+  equipmentLabel.style.top = (e.clientY - 200) + 'px'
 }
 
 init()

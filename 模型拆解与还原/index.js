@@ -26,6 +26,9 @@ let scene,
 // 初始化场景、相机、渲染器
 function init () {
   scene = new THREE.Scene()
+  
+  // 
+  scene.background = new THREE.Color(25, 0, 69)
 
     // 透视相机
   camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
